@@ -1,0 +1,30 @@
+version: "2"
+services:
+
+  db:
+    image: mysql/mysql-server
+    container_name: mysql_db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: cryptodb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: mysql_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
+
+
+  web:
+    image: python:001
+    build: .
+    container_name: python_001
+    depends_on:
+      - db
+    links:
+      - db
+      - db:database
+
+    ports:
+      - "5000:5000"
+

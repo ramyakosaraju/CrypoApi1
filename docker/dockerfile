@@ -1,0 +1,18 @@
+FROM debian:latest
+RUN apt-get update
+RUN apt-get install -y python
+RUN apt-get install -y python-pip
+RUN pip install requests
+RUN pip install flask_sqlalchemy
+RUN pip install flask_marshmallow
+RUN pip install marshmallow-sqlalchemy
+RUN pip install mysql-connector-python
+RUN pip install -U flask-cors
+ADD ./CryptoApi1.py /
+ADD ./templates/Visualization.html /templates/Visualization.html
+ADD ./static/utils.js /static/utils.js
+ADD ./static/Chart.min.js /static/Chart.min.js
+
+
+EXPOSE 5000
+CMD [ "python", "./CryptoApi1.py"]
