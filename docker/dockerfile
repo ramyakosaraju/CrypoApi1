@@ -2,6 +2,8 @@ FROM debian:latest
 RUN apt-get update
 RUN apt-get install -y python
 RUN apt-get install -y python-pip
+RUN pip install newrelic
+RUN newrelic-admin generate-config eu01xx48ebfcdcfa904d587b65dcc1e8b01c332b newrelic.ini
 RUN pip install requests
 RUN pip install flask_sqlalchemy
 RUN pip install flask_marshmallow
@@ -15,4 +17,4 @@ ADD ./static/Chart.min.js /static/Chart.min.js
 
 
 EXPOSE 5000
-CMD [ "python", "./CryptoApi1.py"]
+CMD NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-python ./CryptoApi1.py
